@@ -1,0 +1,111 @@
+
+
+<div class="panel panel-primary" ng-hide="panelEditar">
+    <div class="panel-heading">Parametrizaci&oacute;n de Estudiante</div>
+    <div class="panel-body">
+        <div class="btn-group">
+            <button type="button" class="btn btn-default" ng-click="nuevo()">
+                Nuevo Estudiante</button>
+        </div>
+        <table class="resultados table table-striped">
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Apellido
+                </th>
+                <th>
+                    Código
+                </th>
+                <th>
+                    Identificación
+                </th>
+                <th>
+                    Fecha de nacimiento
+                </th>
+                <th>
+                </th>
+            </tr>
+            <tr ng-repeat="row in lista">
+                <td>{{row.nombre}}</td>
+                <td class="row">{{row.apellido}}</td>
+                <td class="row">{{row.codigo}}</td>
+                <td class="row">{{row.documento}}</td>
+                <td class="row">{{row.fechaNacimiento|date: "yyyy-MM-dd"}}</td>
+                <td class="row">
+                    <button type="button" class="btn btn-default" ng-click="editar(row)">
+                        <span class="glyphicon glyphicon-pencil"></span>Editar
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="eliminar(row)">
+                        <span class="glyphicon glyphicon-remove"></span>Eliminar
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <br/>
+    </div>
+</div>
+
+<div class="panel panel-primary" ng-show="panelEditar">
+    <div class="panel-heading">Parametrizaci&oacute;n de Estudiante</div>
+    <div class="panel-body">
+        <div class="form-group col-md-6" ng-class="errores.nombre ? 'error' : ''">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" 
+                   class="form-control" 
+                   type="text"
+                   ng-model="datosEstudiante.nombre"
+                   placeholder="nombre"/>
+            <div ng-show="errores.nombre">{{errores.nombre}}</div>
+        </div> 
+        <div class="row">
+            <div class="form-group col-md-6" ng-class="errores.apellido ? 'error' : ''">
+                <label>Apellido</label>
+                <input id="apellido" 
+                       class="form-control" 
+                       type="text"
+                       ng-model="datosEstudiante.apellido"
+                       placeholder="apellido"/>
+                <div ng-show="errores.apellido">{{errores.apellido}}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6" ng-class="errores.codigo ? 'error' : ''">
+                <label>Codigo</label>
+                <input id="codigo" 
+                       class="form-control" 
+                       type="number"
+                       ng-model="datosEstudiante.codigo"
+                       placeholder="codigo"/>
+                <div ng-show="errores.codigo">{{errores.codigo}}</div>
+            </div>
+            <div class="form-group col-md-6" ng-class="errores.documento ? 'error' : ''">
+                <label>Documento</label>
+                <input id="documento" 
+                       class="form-control" 
+                       type="number"
+                       ng-model="datosEstudiante.documento"
+                       placeholder="documento"/>
+                <div ng-show="errores.documento">{{errores.documento}}</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6" ng-class="errores.fechaNacimiento ? 'error' : ''">
+                <label>Fecha Nacimiento</label>
+                <input type="date"                           
+                       value="{{ datosEstudiante.fechaNacimiento | date: 'yyyy-MM-dd'}}"
+                       class="form-control"
+                       ng-model="datosEstudiante.fechaNacimiento"/>
+                <div ng-show="errores.fechaNacimiento">{{errores.fechaNacimiento}}</div>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-default" ng-click="guardar()">Aceptar</button>
+            <button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+        </div>    
+    </div>
+</div>
+
