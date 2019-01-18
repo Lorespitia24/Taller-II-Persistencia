@@ -7,6 +7,7 @@ package co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -18,8 +19,9 @@ public class Carrera {
     @Id
     private int id;
     private String nombre;
+    @OneToOne
     private Facultad facultad;
-
+    
     public int getId() {
         return id;
     }

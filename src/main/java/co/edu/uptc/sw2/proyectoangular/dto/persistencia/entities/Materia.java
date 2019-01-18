@@ -5,8 +5,13 @@
  */
 package co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -19,9 +24,12 @@ public class Materia {
     private int id;
     private String nombre;
     private int creditos;
+    @ManyToOne
     private Carrera carrera;
+    @OneToOne
     private Profesor profesor;
-    private Horario horario;
+    @OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    private List<Horario> horario;
 
     public Carrera getCarrera() {
         return carrera;
@@ -39,11 +47,11 @@ public class Materia {
         this.profesor = profesor;
     }
 
-    public Horario getHorario() {
+    public List<Horario> getHorario() {
         return horario;
     }
 
-    public void setHorario(Horario horario) {
+    public void setHorario(List<Horario> horario) {
         this.horario = horario;
     }
 

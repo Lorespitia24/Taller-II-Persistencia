@@ -1,6 +1,6 @@
 package co.edu.uptc.sw2.proyectoangular.dto.persistencia;
 
-import co.edu.uptc.sw2.proyectoangular.dto.EstudianteDTO;
+import co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities.Estudiante;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -12,8 +12,12 @@ public class EstudianteDao {
     @PersistenceContext
     private EntityManager em;
     
-    public List<EstudianteDTO> getListaEstudiante(){
+    public List<Estudiante> getListaEstudiante(){
         String query = "Select e from Estudiante e";
         return em.createQuery(query).getResultList();
+    }
+    public Estudiante guardarEstudiante(Estudiante estudiante){
+        em.persist(estudiante);
+        return estudiante;
     }
 }

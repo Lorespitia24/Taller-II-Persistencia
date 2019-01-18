@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -17,10 +15,12 @@ public class Matricula {
 
     @Id
     private int id;
-    private int year;
+    private int yearM;
     private int semestre;
+    @OneToOne
     private Estudiante estudiante;
-    private Materia materia;
+    @OneToMany
+    private List<Materia> materia;
 
     public int getId() {
         return id;
@@ -31,11 +31,11 @@ public class Matricula {
     }
 
     public int getYear() {
-        return year;
+        return yearM;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setYear(int yearM) {
+        this.yearM = yearM;
     }
 
     public int getSemestre() {
@@ -54,11 +54,11 @@ public class Matricula {
         this.estudiante = estudiante;
     }
 
-    public Materia getMateria() {
+    public List<Materia> getMateria() {
         return materia;
     }
 
-    public void setMateria(Materia materia) {
+    public void setMateria(List<Materia> materia) {
         this.materia = materia;
     }
 

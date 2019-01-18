@@ -1,13 +1,14 @@
 package co.edu.uptc.sw2.proyectoangular.servicios;
 
-import co.edu.uptc.sw2.proyectoangular.dto.MatriculaDTO;
-import co.edu.uptc.sw2.proyectoangular.logica.MatriculaLogica;
 import co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities.Matricula;
+import co.edu.uptc.sw2.proyectoangular.logica.MatriculaLogica;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
 /**
@@ -22,25 +23,23 @@ public class ServicioMatricula {
     private MatriculaLogica matriculaLogica;
 
     @GET
-    public List<MatriculaDTO> consultarMatricula() {
+    public List<Matricula> consultarMatricula() {
         return matriculaLogica.getListaMatricula();
     }
 
     @POST
-    public MatriculaDTO guardarMatricula(MatriculaDTO matricula) {
-
+    public Matricula guardarMatricula(Matricula matricula) {
         matricula.setId(matriculaLogica.getListaMatricula().size() + 1);
-        matriculaLogica.getListaMatricula().add(matricula);
-        return matricula;
+        return matriculaLogica.nuevoMatricula(matricula);
     }
 
-    @POST
+    @PUT
     @Path("editarMatricula")
-    public void editarMatricula(MatriculaDTO matricula) {
+    public void editarMatricula(Matricula matricula) {
         matriculaLogica.editarMatricula(matricula);
     }
 
-    @POST
+    @DELETE
     @Path("eliminarMatricula")
     public void eliminarMatricula(int id) {
         matriculaLogica.eliminarMatricula(id);

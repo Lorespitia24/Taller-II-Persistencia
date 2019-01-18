@@ -1,13 +1,15 @@
 
 package co.edu.uptc.sw2.proyectoangular.servicios;
 
-import co.edu.uptc.sw2.proyectoangular.dto.MateriaDTO;
+import co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities.Materia;
 import co.edu.uptc.sw2.proyectoangular.logica.MateriaLogica;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
 /**
@@ -22,26 +24,25 @@ public class ServicioMateria {
     private MateriaLogica materiaLogica;
 
     @GET
-    public List<MateriaDTO> consultarMateria() {
+    public List<Materia> consultarMateria() {
         return materiaLogica.getListaMateria();
     }
 
     @POST
-    public MateriaDTO guardarMateria(MateriaDTO materia) {
+    public Materia guardarMateria(Materia materia) {
 
         materia.setId(materiaLogica.getListaMateria().size() + 1);
-        materiaLogica.getListaMateria().add(materia);
-        return materia;
+            return materiaLogica.nuevoMateria(materia);
     }
 
     //metodos
-    @POST
+    @PUT
     @Path("editarMateria")
-    public void editarEstudiante(MateriaDTO materia) {
+    public void editarEstudiante(Materia materia) {
         materiaLogica.editarMateria(materia);
     }
 
-    @POST
+    @DELETE
     @Path("eliminarMateria")
     public void eliminarMateria(int id) {
         materiaLogica.eliminarMateria(id);

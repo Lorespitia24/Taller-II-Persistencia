@@ -5,13 +5,15 @@
  */
 package co.edu.uptc.sw2.proyectoangular.servicios;
 
-import co.edu.uptc.sw2.proyectoangular.dto.HorarioDTO;
+import co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities.Horario;
 import co.edu.uptc.sw2.proyectoangular.logica.HorarioLogica;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
 /**
@@ -26,26 +28,25 @@ public class ServicioHorario {
     private HorarioLogica horarioLogica;
 
     @GET
-    public List<HorarioDTO> consultarHorario() {
+    public List<Horario> consultarHorario() {
         return horarioLogica.getListaHorario();
     }
 
     @POST
-    public HorarioDTO guardarHorario(HorarioDTO horario) {
+    public Horario guardarHorario(Horario horario) {
 
         horario.setId(horarioLogica.getListaHorario().size() + 1);
-        horarioLogica.getListaHorario().add(horario);
-        return horario;
+return horarioLogica.nuevoHorario(horario);
     }
     //metodos
 
-    @POST
+    @PUT
     @Path("editarHorario")
-    public void editarHorario(HorarioDTO horario) {
+    public void editarHorario(Horario horario) {
         horarioLogica.editarHorario(horario);
     }
 
-    @POST
+    @DELETE
     @Path("eliminarHorario")
     public void eliminarHorario(int id) {
         horarioLogica.eliminarHorario(id);

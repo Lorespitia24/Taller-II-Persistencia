@@ -7,7 +7,7 @@ package co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+import javax.persistence.OneToOne;
 /**
  *
  * @author Lorespitia_24
@@ -16,9 +16,13 @@ import javax.persistence.Id;
 public class Municipio {
 
     @Id
+
     private int id;
     private String nombre;
 
+        @OneToOne
+        private Estudiante estudiante;
+        
     public int getId() {
         return id;
     }

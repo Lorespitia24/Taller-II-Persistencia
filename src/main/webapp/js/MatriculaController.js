@@ -46,6 +46,12 @@ module.controller('MatriculaCtrl', ['$scope', '$filter', '$http', function ($sco
                $scope.getMateria(); 
         });
     }
+    $scope.editarMatricula=function(){
+        $http.put("./webresources/ServicioMatricula",$scope.datosMatricula)
+            .then(function(response) {
+               $scope.getMateria(); 
+        });
+    }
         
     $scope.datosMatricula = {};
     $scope.panelEditar = false;

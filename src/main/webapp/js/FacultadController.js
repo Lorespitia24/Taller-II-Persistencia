@@ -16,6 +16,7 @@ module.controller('FacultadCtrl', ['$scope', '$filter', '$http', function ($scop
     }
     
     $scope.guardarFacultad=function(){
+        console.log($scope.datosFacultad);
         $http.post("./webresources/ServicioFacultad",$scope.datosFacultad)
             .then(function(response) {
                $scope.getFacultad(); 
@@ -41,6 +42,10 @@ module.controller('FacultadCtrl', ['$scope', '$filter', '$http', function ($scop
         if (!$scope.datosFacultad.id){
             $scope.datosFacultad.id = $scope.id++;
             $scope.lista.push($scope.datosFacultad);
+            $scope.guardarFacultad();
+        }
+        else{
+            //funcion al servicio de actualizar...
         }
         $scope.panelEditar = false;
     };

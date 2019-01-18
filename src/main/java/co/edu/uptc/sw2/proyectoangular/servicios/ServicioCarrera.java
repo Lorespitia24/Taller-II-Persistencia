@@ -5,13 +5,15 @@
  */
 package co.edu.uptc.sw2.proyectoangular.servicios;
 
-import co.edu.uptc.sw2.proyectoangular.dto.CarreraDTO;
+import co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities.Carrera;
 import co.edu.uptc.sw2.proyectoangular.logica.CarreraLogica;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
 /**
@@ -26,24 +28,23 @@ public class ServicioCarrera {
     private CarreraLogica carreraLogica;
 
     @GET
-    public List<CarreraDTO> consultarCarrera() {
+    public List<Carrera> consultarCarrera() {
         return carreraLogica.getListaCarrera();
     }
 
     @POST
-    public CarreraDTO guardarCarrera(CarreraDTO carrera) {
+    public Carrera guardarCarrera(Carrera carrera) {
         carrera.setId(carreraLogica.getListaCarrera().size() + 1);
-        carreraLogica.getListaCarrera().add(carrera);
-        return carrera;
+return carreraLogica.nuevaCarrera(carrera);
     }
 
-    @POST
+    @PUT
     @Path("editarCarrera")
-    public void editarCarrera(CarreraDTO carrera) {
+    public void editarCarrera(Carrera carrera) {
         carreraLogica.editarCarrera(carrera);
     }
 
-    @POST
+    @DELETE
     @Path("eliminarCarrera")
     public void eliminarCarrera(int id) {
         carreraLogica.eliminarCarrera(id);

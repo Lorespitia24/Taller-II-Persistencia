@@ -5,13 +5,15 @@
  */
 package co.edu.uptc.sw2.proyectoangular.servicios;
 
-import co.edu.uptc.sw2.proyectoangular.dto.ProfesorDTO;
+import co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities.Profesor;
 import co.edu.uptc.sw2.proyectoangular.logica.ProfesorLogica;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
 /**
@@ -26,26 +28,25 @@ public class ServicioProfesor {
     private ProfesorLogica profesorLogica;
 
     @GET
-    public List<ProfesorDTO> consultarProfesor() {
+    public List<Profesor> consultarProfesor() {
         return profesorLogica.getListaProfesor();
     }
 
     @POST
-    public ProfesorDTO guardarProfesor(ProfesorDTO profesor) {
+    public Profesor guardarProfesor(Profesor profesor) {
 
         profesor.setId(profesorLogica.getListaProfesor().size() + 1);
-        profesorLogica.getListaProfesor().add(profesor);
-        return profesor;
+        return profesorLogica.nuevoProfesor(profesor);
     }
 
     //metodos
-    @POST
+    @PUT
     @Path("editarProfesor")
-    public void editarFacultad(ProfesorDTO profesor) {
+    public void editarFacultad(Profesor profesor) {
         profesorLogica.editarProfesor(profesor);
     }
 
-    @POST
+    @DELETE
     @Path("eliminarProfesor")
     public void eliminarProfesor(int id) {
         profesorLogica.eliminarProfesor(id);

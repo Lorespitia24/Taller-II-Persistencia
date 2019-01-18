@@ -1,12 +1,14 @@
 package co.edu.uptc.sw2.proyectoangular.servicios;
 
-import co.edu.uptc.sw2.proyectoangular.dto.MunicipioDTO;
+import co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities.Municipio;
 import co.edu.uptc.sw2.proyectoangular.logica.MunicipioLogica;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
 @Path("ServicioMunicipio")
@@ -17,26 +19,25 @@ public class ServicioMunicipio {
     private MunicipioLogica municipioLogica;
 
     @GET
-    public List<MunicipioDTO> consultarMunicipio() {
+    public List<Municipio> consultarMunicipio() {
         return municipioLogica.getListaMunicipio();
     }
 
     @POST
-    public MunicipioDTO guardarMunicipio(MunicipioDTO municipio) {
+    public Municipio guardarMunicipio(Municipio municipio) {
 
         municipio.setId(municipioLogica.getListaMunicipio().size() + 1);
-        municipioLogica.getListaMunicipio().add(municipio);
-        return municipio;
+return municipioLogica.nuevoMunicipio(municipio);
     }
 
     //metodos
-    @POST
+    @PUT
     @Path("editarMunicipio")
-    public void editarMunicipio(MunicipioDTO municipio) {
+    public void editarMunicipio(Municipio municipio) {
         municipioLogica.editarMunicipio(municipio);
     }
 
-    @POST
+    @DELETE
     @Path("eliminarMunicipio")
     public void eliminarMunicipio(int id) {
         municipioLogica.eliminarMunicipio(id);

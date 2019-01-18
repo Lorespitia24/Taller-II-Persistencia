@@ -1,9 +1,8 @@
 
 package co.edu.uptc.sw2.proyectoangular.logica;
 
-import co.edu.uptc.sw2.proyectoangular.dto.CarreraDTO;
-import co.edu.uptc.sw2.proyectoangular.dto.FacultadDTO;
 import co.edu.uptc.sw2.proyectoangular.dto.persistencia.CarreraDao;
+import co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities.Carrera;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -15,14 +14,14 @@ public class CarreraLogica {
       @EJB
     public CarreraDao carreraDao;//carreradao
     
-    public List<CarreraDTO> getListaCarrera(){
+    public List<Carrera> getListaCarrera(){
         return carreraDao.getListaCarrera();
     }
-    public CarreraDTO nuevaCarrera(int id, String nombre,FacultadDTO facultad){
-    return new CarreraDTO(id, nombre,facultad);
+    public Carrera nuevaCarrera(Carrera carrera){
+    return carreraDao.guardarCarrera(carrera);
     }
-    public void editarCarrera(CarreraDTO carreraAModif){
-        for (CarreraDTO carrera : carreraDao.getListaCarrera()) {
+    public void editarCarrera(Carrera carreraAModif){
+        for (Carrera carrera : carreraDao.getListaCarrera()) {
             if(carrera.getId()==carreraAModif.getId()){
             carreraDao.getListaCarrera().remove(carrera);
             carreraDao.getListaCarrera().add(carreraAModif);
@@ -33,7 +32,7 @@ public class CarreraLogica {
         
     }
     public void eliminarCarrera(int id){
-        for (CarreraDTO carrera : carreraDao.getListaCarrera()) {
+        for (Carrera carrera : carreraDao.getListaCarrera()) {
             if(carrera.getId()==id){
            carreraDao.getListaCarrera().remove(id);
            break;

@@ -1,12 +1,14 @@
 package co.edu.uptc.sw2.proyectoangular.servicios;
 
-import co.edu.uptc.sw2.proyectoangular.dto.EstudianteDTO;
+import co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities.Estudiante;
 import co.edu.uptc.sw2.proyectoangular.logica.EstudianteLogica;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
 /**
@@ -21,25 +23,24 @@ public class ServicioEstudiante {
     private EstudianteLogica estudianteLogica;
 
     @GET
-    public List<EstudianteDTO> consultarEstudiantes() {
+    public List<Estudiante> consultarEstudiantes() {
         return estudianteLogica.getListaEstudiante();
     }
 
     @POST
-    public EstudianteDTO guardarEstudiante(EstudianteDTO estudiante) {
+    public Estudiante guardarEstudiante(Estudiante estudiante) {
         estudiante.setId(estudianteLogica.getListaEstudiante().size() + 1);
-        estudianteLogica.getListaEstudiante().add(estudiante);
-        return estudiante;
+        return estudianteLogica.nuevoEstudiante(estudiante);
     }
 
     //metodos
-    @POST
+    @PUT
     @Path("editarEstudiante")
-    public void editarEstudiante(EstudianteDTO estudiante) {
+    public void editarEstudiante(Estudiante estudiante) {
         estudianteLogica.editarEstudiante(estudiante);
     }
 
-    @POST
+    @DELETE
     @Path("eliminarEstudiante")
     public void eliminarEstudiante(int id) {
         estudianteLogica.eliminarEstudiante(id);

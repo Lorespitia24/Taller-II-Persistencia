@@ -16,20 +16,12 @@ import javax.persistence.Id;
 public class Estudiante {
 
     @Id
+    //@GeneratedValue( strategy=GenerationType.AUTO)  
     private int id;
     private String nombre;
     private String correo;
     private String curso;
-    private Matricula matricula;
-
-    public Matricula getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(Matricula matricula) {
-        this.matricula = matricula;
-    }
-
+    
     public int getId() {
         return id;
     }
