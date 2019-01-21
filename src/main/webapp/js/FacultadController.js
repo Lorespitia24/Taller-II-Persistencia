@@ -22,7 +22,21 @@ module.controller('FacultadCtrl', ['$scope', '$filter', '$http', function ($scop
                $scope.getFacultad(); 
         });
     }
-        
+    
+    $scope.editarFacultad=function(){
+        $http.put("./webresources/ServicioFacultad/editarFacultad",$scope.datosFacultad)
+            .then(function(response) {
+               $scope.getFacultad(); 
+        });
+    }
+    
+       $scope.eliminarFacultad=function(){
+        console.log("estamos borrando");
+        $http.delete("./webresources/ServicioFacultad/eliminarFacultad",$scope.datosFacultad)
+            .then(function(response) {
+               $scope.getFacultad(); 
+        });
+    } 
     $scope.datosFacultad = {};
     $scope.panelEditar = false;
     
@@ -45,6 +59,9 @@ module.controller('FacultadCtrl', ['$scope', '$filter', '$http', function ($scop
             $scope.guardarFacultad();
         }
         else{
+            console.log("voy a editar");
+            $scope.editarFacultad();
+            
             //funcion al servicio de actualizar...
         }
         $scope.panelEditar = false;
@@ -63,8 +80,9 @@ module.controller('FacultadCtrl', ['$scope', '$filter', '$http', function ($scop
     $scope.eliminar = function (data){
         if (confirm('\xbfDesea elminar este registro?')) {    
             for(var i=0; i<$scope.lista.length; i++){
-                if($scope.lista[i]==data){
+                if($scope.lista[i]===data){
                     $scope.lista.splice(i,1);
+                    $scope.eliminarFacultad();
                     break;
                 }
             }

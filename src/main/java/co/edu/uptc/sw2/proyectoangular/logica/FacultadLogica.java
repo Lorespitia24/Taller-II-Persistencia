@@ -26,21 +26,23 @@ public class FacultadLogica {
        }
 
     public void editarFacultad(Facultad facultadAModif) {
+        
         for (Facultad facultad : facultadDao.getListaFacultad()) {
             if (facultad.getId() == facultadAModif.getId()) {
                 facultadDao.getListaFacultad().remove(facultad);
                 facultadDao.getListaFacultad().add(facultadAModif);
+                facultadDao.editarFacultad(facultadAModif);
                 break;
             }
-
         }
-
     }
 
-    public void eliminarFacultad(int id) {
-        for (Facultad facultad : facultadDao.getListaFacultad()) {
-            if (facultad.getId() == id) {
-                facultadDao.getListaFacultad().remove(id);
+    public void eliminarFacultad(Facultad facultad) {
+        for (Facultad facultadr : facultadDao.getListaFacultad()) {
+            if (facultadr.getId() == facultad.getId()) {
+                System.out.println("entre");
+                facultadDao.getListaFacultad().remove(facultadr.getId());
+                facultadDao.eliminarFacultad(facultad);
                 break;
             }
 

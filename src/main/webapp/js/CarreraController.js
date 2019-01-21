@@ -25,11 +25,29 @@ module.controller('CarreraCtrl', ['$scope', '$filter', '$http', function ($scope
         });
     }
     $scope.guardarCarrera=function(){
+         console.log($scope.datosCarrera);
         $http.post("./webresources/ServicioCarrera",$scope.datosCarrera)
             .then(function(response) {
-               $scope.getCarrera(); 
+               $scope.getCarrera();
+       $scope.getFacultad();
         });
     }
+    $scope.editarCarrera=function(){
+        $http.put("./webresources/ServicioCarrera/editarCarrera",$scope.datosCarrera)
+            .then(function(response) {
+               $scope.getCarrera();
+       $scope.getFacultad();
+        });
+    }
+    
+       $scope.eliminarCarrera=function(){
+        console.log("estamos borrando");
+        $http.delete("./webresources/ServicioCarrera/eliminarCarrera",$scope.datosCarrera)
+            .then(function(response) {
+               $scope.getCarrera(); 
+       $scope.getFacultad();
+        });
+    } 
         
         //listar
 //    $scope.lista = listaCarreras;
@@ -54,7 +72,12 @@ module.controller('CarreraCtrl', ['$scope', '$filter', '$http', function ($scope
         if (!$scope.datosCarrera.id){
             $scope.datosCarrera.id = $scope.id++;
             $scope.lista.push($scope.datosCarrera);
+            $scope.guardarCarrera();
+        }else{
+            console.log("voy a editar");
+            $scope.editarCarrera();
             
+            //funcion al servicio de actualizar...
         }
         $scope.panelEditar = false;
     };
@@ -74,6 +97,7 @@ module.controller('CarreraCtrl', ['$scope', '$filter', '$http', function ($scope
             for(var i=0; i<$scope.lista.length; i++){
                 if($scope.lista[i]==data){
                     $scope.lista.splice(i,1);
+                    $scope.eliminarCarrera();
                     break;
                 }
             }

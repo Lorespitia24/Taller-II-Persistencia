@@ -20,4 +20,13 @@ public class CarreraDao {
         em.persist(carrera);
         return carrera;
     }
+    public Carrera editarCarrera(Carrera carrera) {
+        em.merge(carrera);
+        return carrera;
+    }
+
+    public Carrera eliminarCarrera(Carrera carrera) {
+        em.remove(carrera);
+        return carrera;
+    }
 }

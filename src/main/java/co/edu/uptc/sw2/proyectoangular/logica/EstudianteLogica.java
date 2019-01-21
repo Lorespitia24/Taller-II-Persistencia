@@ -26,17 +26,17 @@ public class EstudianteLogica {
             if(estudiante.getId()==estudianteAModif.getId()){
             estudianteDao.getListaEstudiante().remove(estudiante);
             estudianteDao.getListaEstudiante().add(estudianteAModif);
+            estudianteDao.editarEstudiante(estudiante);
             break;
             }
-            
         }
-        
     }
     //eliminar estudiante
     public void eliminarEstudiante(int id){
         for (Estudiante estudiante : estudianteDao.getListaEstudiante()) {
             if(estudiante.getId()==id){
            estudianteDao.getListaEstudiante().remove(id);
+           estudianteDao.eliminarEstudiante(estudiante);
            break;
             }
             

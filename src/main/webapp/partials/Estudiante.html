@@ -32,7 +32,8 @@
                 <td class="row">{{row.apellido}}</td>
                 <td class="row">{{row.codigo}}</td>
                 <td class="row">{{row.documento}}</td>
-                <td class="row">{{row.fechaNacimiento|date: "yyyy-MM-dd"}}</td>
+                <td class="row">{{row.fechaNacimiento|date: "dd-MM-yyyy"}}</td>
+<!--                yyyy-MM-dd-->
                 <td class="row">
                     <button type="button" class="btn btn-default" ng-click="editar(row)">
                         <span class="glyphicon glyphicon-pencil"></span>Editar

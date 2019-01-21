@@ -36,6 +36,20 @@ module.controller('EstudianteCtrl', ['$scope', '$filter', '$http',
                $scope.getEstudiantes(); 
         });
     }
+    $scope.editarEstudiante=function(){
+        $http.put("./webresources/ServicioEstudiante/editarEstudiante",$scope.datosEstudiante)
+            .then(function(response) {
+               $scope.getFacultad(); 
+        });
+    }
+    
+       $scope.eliminarEstudiante=function(){
+        console.log("estamos borrando");
+        $http.delete("./webresources/ServicioEstudiante/eliminarEstudiante",$scope.datosEstudiante)
+            .then(function(response) {
+               $scope.getFacultad(); 
+        });
+    } 
     //listar
     $scope.datosEstudiante = {};
         
@@ -55,6 +69,13 @@ module.controller('EstudianteCtrl', ['$scope', '$filter', '$http',
         if (!$scope.datosEstudiante.id){
             $scope.datosEstudiante.id = $scope.id++;
             $scope.lista.push($scope.datosEstudiante);
+            $scope.guardarEstudiante();
+        }
+        else{
+            console.log("voy a editar");
+            $scope.editarEstudiante();
+            
+            //funcion al servicio de actualizar...
         }
         $scope.panelEditar = false;
     };
@@ -74,6 +95,7 @@ module.controller('EstudianteCtrl', ['$scope', '$filter', '$http',
             for(var i=0; i<$scope.lista.length; i++){
                 if($scope.lista[i]==data){
                     $scope.lista.splice(i,1);
+                    $scope.eliminarEstudiante();
                     break;
                 }
             }

@@ -25,6 +25,7 @@ public class CarreraLogica {
             if(carrera.getId()==carreraAModif.getId()){
             carreraDao.getListaCarrera().remove(carrera);
             carreraDao.getListaCarrera().add(carreraAModif);
+            carreraDao.editarCarrera(carrera);
             break;
             }
             
@@ -35,6 +36,7 @@ public class CarreraLogica {
         for (Carrera carrera : carreraDao.getListaCarrera()) {
             if(carrera.getId()==id){
            carreraDao.getListaCarrera().remove(id);
+           carreraDao.eliminarCarrera(carrera);
            break;
             }
             

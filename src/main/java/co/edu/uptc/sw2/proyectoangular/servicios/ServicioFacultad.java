@@ -31,7 +31,6 @@ public class ServicioFacultad {
     @POST
     public Facultad guardarFacultad(Facultad facultad) {
         facultad.setId(facultadLogica.getListaFacultad().size() + 1);
-        System.out.println("facultad:" +facultad.getNombre());
         return facultadLogica.nuevaFacultad(facultad);
         
     }
@@ -44,8 +43,8 @@ public class ServicioFacultad {
 
     @DELETE
     @Path("eliminarFacultad")
-    public void eliminarFacultad(int id) {
-        facultadLogica.eliminarFacultad(id);
+    public void eliminarFacultad(Facultad facultad) {
+        facultadLogica.eliminarFacultad(facultad);
     }
 
 }

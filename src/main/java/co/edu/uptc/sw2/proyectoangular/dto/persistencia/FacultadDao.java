@@ -8,16 +8,27 @@ import javax.persistence.PersistenceContext;
 
 @Stateless
 public class FacultadDao {
-    
+
     @PersistenceContext
     private EntityManager em;
-    
-    public List<Facultad> getListaFacultad(){
+
+    public List<Facultad> getListaFacultad() {
         String query = "Select e from Facultad e";
         return em.createQuery(query).getResultList();
     }
-    public Facultad guardarFacultad(Facultad facultad){
+
+    public Facultad guardarFacultad(Facultad facultad) {
         em.persist(facultad);
+        return facultad;
+    }
+
+    public Facultad editarFacultad(Facultad facultad) {
+        em.merge(facultad);
+        return facultad;
+    }
+
+    public Facultad eliminarFacultad(Facultad facultad) {
+        em.remove(facultad);
         return facultad;
     }
 }

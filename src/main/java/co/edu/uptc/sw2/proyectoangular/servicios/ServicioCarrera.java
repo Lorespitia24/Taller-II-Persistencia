@@ -35,7 +35,7 @@ public class ServicioCarrera {
     @POST
     public Carrera guardarCarrera(Carrera carrera) {
         carrera.setId(carreraLogica.getListaCarrera().size() + 1);
-return carreraLogica.nuevaCarrera(carrera);
+        return carreraLogica.nuevaCarrera(carrera);
     }
 
     @PUT

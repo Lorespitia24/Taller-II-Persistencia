@@ -20,4 +20,13 @@ public class EstudianteDao {
         em.persist(estudiante);
         return estudiante;
     }
+    public Estudiante editarEstudiante(Estudiante estudiante) {
+        em.merge(estudiante);
+        return estudiante;
+    }
+
+    public Estudiante eliminarEstudiante(Estudiante estudiante) {
+        em.remove(estudiante);
+        return estudiante;
+    }
 }
