@@ -32,6 +32,7 @@ return materiaDao.guardarMateria(materia);
             if(materia.getId()==materiaEdit.getId()){
             materiaDao.getListaMateria().remove(materia);
             materiaDao.getListaMateria().add(materiaEdit);
+            materiaDao.editarMateria(materia);
             break;
             }
             
@@ -43,6 +44,7 @@ return materiaDao.guardarMateria(materia);
         for (Materia materia : materiaDao.getListaMateria()) {
             if(materia.getId()==id){
            materiaDao.getListaMateria().remove(id);
+           materiaDao.eliminarMateria(materia);
            break;
             }
             

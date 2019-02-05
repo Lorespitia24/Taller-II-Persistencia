@@ -1,11 +1,12 @@
 'use strict';
 
 //var listaCarreras=[{nombre:'Ingenieria de sistemas', facultad:{id:1,nombre:'ingenieria'}}]
-var app=angular.module('cursoApp',[]);
+//var app=angular.module('cursoApp',[]);
 module.controller('CarreraCtrl', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
   
     $scope.lista = null;
     $scope.listaFacultad=null;
+    $scope.id=1;
     
     $scope.getCarrera=function(){
         $http.get("./webresources/ServicioCarrera",{})
@@ -17,7 +18,7 @@ module.controller('CarreraCtrl', ['$scope', '$filter', '$http', function ($scope
     }
     
      $scope.getFacultad=function(){
-        $http.get("./webresources/ServicioFacultad",{})
+        $http.get("./webresources/ServicioFacultad/traerFacultad",{})
             .then(function(response) {
                 $scope.listaFacultad = response.data;
         }, function(){
@@ -29,14 +30,15 @@ module.controller('CarreraCtrl', ['$scope', '$filter', '$http', function ($scope
         $http.post("./webresources/ServicioCarrera",$scope.datosCarrera)
             .then(function(response) {
                $scope.getCarrera();
-       $scope.getFacultad();
+//       $scope.getFacultad();
         });
     }
     $scope.editarCarrera=function(){
+        
         $http.put("./webresources/ServicioCarrera/editarCarrera",$scope.datosCarrera)
             .then(function(response) {
                $scope.getCarrera();
-       $scope.getFacultad();
+//       $scope.getFacultad();
         });
     }
     
@@ -45,7 +47,7 @@ module.controller('CarreraCtrl', ['$scope', '$filter', '$http', function ($scope
         $http.delete("./webresources/ServicioCarrera/eliminarCarrera",$scope.datosCarrera)
             .then(function(response) {
                $scope.getCarrera(); 
-       $scope.getFacultad();
+//       $scope.getFacultad();
         });
     } 
         
@@ -66,12 +68,13 @@ module.controller('CarreraCtrl', ['$scope', '$filter', '$http', function ($scope
         $scope.errores = {};
         var error = false;
         
-        if (error)
-            return;
+        if (error)        
+        return;
         
         if (!$scope.datosCarrera.id){
             $scope.datosCarrera.id = $scope.id++;
-            $scope.lista.push($scope.datosCarrera);
+             $scope.lista.push($scope.datosCarrera.id);
+             console.log("casito guardo");
             $scope.guardarCarrera();
         }else{
             console.log("voy a editar");
@@ -90,6 +93,7 @@ module.controller('CarreraCtrl', ['$scope', '$filter', '$http', function ($scope
     $scope.editar = function (data) {
         $scope.panelEditar = true;
         $scope.datosCarrera = data;
+//         $scope.editarCarrera();
     };
     //eliminar
     $scope.eliminar = function (data){

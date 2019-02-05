@@ -28,7 +28,9 @@ public class ServicioMatricula {
     }
 
     @POST
+    @Path("nuevarMatricula")
     public Matricula guardarMatricula(Matricula matricula) {
+        System.out.println("matricula ya");
         matricula.setId(matriculaLogica.getListaMatricula().size() + 1);
         return matriculaLogica.nuevoMatricula(matricula);
     }

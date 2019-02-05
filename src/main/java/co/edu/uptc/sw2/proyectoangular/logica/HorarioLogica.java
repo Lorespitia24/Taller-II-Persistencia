@@ -31,6 +31,7 @@ public class HorarioLogica {
             if(horario.getId()==horarioEdit.getId()){
             horarioDao.getListaHorario().remove(horario);
             horarioDao.getListaHorario().add(horarioEdit);
+            horarioDao.editarHorario(horario);
             break;
             }
             
@@ -42,6 +43,7 @@ public class HorarioLogica {
         for (Horario horario : horarioDao.getListaHorario()) {
             if(horario.getId()==id){
            horarioDao.getListaHorario().remove(id);
+           horarioDao.eliminarHorario(horario);
            break;
             }
             

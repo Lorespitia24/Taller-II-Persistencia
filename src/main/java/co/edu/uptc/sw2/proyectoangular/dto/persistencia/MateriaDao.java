@@ -20,4 +20,13 @@ public class MateriaDao {
         em.persist(materia);
         return materia;
     }
+     public Materia editarMateria(Materia materia) {
+        em.merge(materia);
+        return materia;
+    }
+
+    public Materia eliminarMateria(Materia materia) {
+        em.remove(materia);
+        return materia;
+    }
 }

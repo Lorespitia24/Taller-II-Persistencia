@@ -8,6 +8,7 @@ package co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -21,7 +22,17 @@ public class Horario {
     private String dia;
     private Date horaInicio;
     private Date horaFin;
+    @ManyToOne
+    private Materia materia;
 
+    public Materia getMateria() {
+        return materia;
+    }
+
+    public void setMateria(Materia materia) {
+        this.materia = materia;
+    }
+    
     public int getId() {
         return id;
     }

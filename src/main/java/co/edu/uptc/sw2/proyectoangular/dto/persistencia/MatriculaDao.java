@@ -21,4 +21,13 @@ public class MatriculaDao {
   em.persist(matricula);
   return matricula;
     }
+     public Matricula editarMatricula(Matricula matricula) {
+        em.merge(matricula);
+        return matricula;
+    }
+
+    public Matricula eliminarMatricula(Matricula matricula) {
+        em.remove(matricula);
+        return matricula;
+    }
 }

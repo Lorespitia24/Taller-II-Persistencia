@@ -21,4 +21,13 @@ public class ProfesorDao {
         em.persist(profesor);
         return profesor;
     }
+    public Profesor editarProfesor(Profesor profesor) {
+        em.merge(profesor);
+        return profesor;
+    }
+
+    public Profesor eliminarProfesor(Profesor profesor) {
+        em.remove(profesor);
+        return profesor;
+    }
 }

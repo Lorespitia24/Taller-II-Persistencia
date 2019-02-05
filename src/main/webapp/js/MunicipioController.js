@@ -10,7 +10,7 @@ var app=angular.module('cursoApp',[]);
 module.controller('MunicipioCtrl', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
     
     $scope.lista = null;
-    $scope.id=3;
+    $scope.id=7;
 
         $scope.getMunicipio=function(){
         $http.get("./webresources/ServicioMunicipio",{})
@@ -28,8 +28,20 @@ module.controller('MunicipioCtrl', ['$scope', '$filter', '$http', function ($sco
         });
     }
         
-        
-        
+        $scope.editarMunicipio=function(){
+        $http.put("./webresources/ServicioMunicipio/editarMunicipio",$scope.datosMunicipio)
+            .then(function(response) {
+       $scope.getMunicipio();
+        });
+    }  
+        $scope.eliminarMunicipio=function(){
+        console.log("estamos borrando");
+        $http.delete("./webresources/ServicioMunicipio/eliminarMunicipio",$scope.datosMunicipio)
+            .then(function(response) {
+               $scope.getCarrera(); 
+//       $scope.getFacultad();
+        });
+    } 
         //listar
     
     $scope.datosMunicipio = {};
@@ -50,7 +62,10 @@ module.controller('MunicipioCtrl', ['$scope', '$filter', '$http', function ($sco
         
         if (!$scope.datosMunicipio.id){
             $scope.datosMunicipio.id = $scope.id++;
-            $scope.lista.push($scope.datosMunicipio);
+            $scope.lista.push($scope.datosMunicipio.id);
+            $scope.guardarMunicipio();
+        }else{
+            $scope.editarMunicipio();
         }
         $scope.panelEditar = false;
     };
@@ -70,6 +85,7 @@ module.controller('MunicipioCtrl', ['$scope', '$filter', '$http', function ($sco
             for(var i=0; i<$scope.lista.length; i++){
                 if($scope.lista[i]==data){
                     $scope.lista.splice(i,1);
+                    $scope.eliminarMunicipio();
                     break;
                 }
             }

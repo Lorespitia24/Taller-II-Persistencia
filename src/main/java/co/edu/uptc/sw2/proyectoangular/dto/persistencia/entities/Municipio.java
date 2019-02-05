@@ -20,8 +20,8 @@ public class Municipio {
     private int id;
     private String nombre;
 
-        @OneToOne
-        private Estudiante estudiante;
+//        @OneToOne
+//        private Estudiante estudiante;
         
     public int getId() {
         return id;

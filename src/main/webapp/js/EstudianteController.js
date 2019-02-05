@@ -18,9 +18,19 @@ module.controller('EstudianteCtrl', ['$scope', '$filter', '$http',
     //$scope.datosFormulario = {};
     
     $scope.panelEditar = false; 
+    $scope.listaMunicipio = null;
     $scope.lista = null;
  //   $scope.estudiantes = null;
+    $scope.id=1;
     
+        $scope.getMunicipio=function(){
+        $http.get("./webresources/ServicioMunicipio",{})
+            .then(function(response) {
+                $scope.listaMunicipio = response.data;
+        }, function(){
+                        alert("error");
+        });
+    }
     $scope.getEstudiantes=function(){
         $http.get("./webresources/ServicioEstudiante",{})
             .then(function(response) {
@@ -31,7 +41,7 @@ module.controller('EstudianteCtrl', ['$scope', '$filter', '$http',
     }
     
     $scope.guardarEstudiante=function(){
-        $http.post("./webresources/ServicioEstudiante",$scope.nuevoEstudiante)
+        $http.post("./webresources/ServicioEstudiante",$scope.datosEstudiante)
             .then(function(response) {
                $scope.getEstudiantes(); 
         });
@@ -39,7 +49,7 @@ module.controller('EstudianteCtrl', ['$scope', '$filter', '$http',
     $scope.editarEstudiante=function(){
         $http.put("./webresources/ServicioEstudiante/editarEstudiante",$scope.datosEstudiante)
             .then(function(response) {
-               $scope.getFacultad(); 
+               $scope.getEstudiantes(); 
         });
     }
     
@@ -47,7 +57,7 @@ module.controller('EstudianteCtrl', ['$scope', '$filter', '$http',
         console.log("estamos borrando");
         $http.delete("./webresources/ServicioEstudiante/eliminarEstudiante",$scope.datosEstudiante)
             .then(function(response) {
-               $scope.getFacultad(); 
+               $scope.getEstudiantes(); 
         });
     } 
     //listar
@@ -68,7 +78,7 @@ module.controller('EstudianteCtrl', ['$scope', '$filter', '$http',
         
         if (!$scope.datosEstudiante.id){
             $scope.datosEstudiante.id = $scope.id++;
-            $scope.lista.push($scope.datosEstudiante);
+            $scope.lista.push($scope.datosEstudiante.id);
             $scope.guardarEstudiante();
         }
         else{
@@ -101,5 +111,6 @@ module.controller('EstudianteCtrl', ['$scope', '$filter', '$http',
             }
         }
     };
+    $scope.getMunicipio();
     $scope.getEstudiantes();
 }]);

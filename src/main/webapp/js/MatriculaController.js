@@ -1,18 +1,16 @@
 'use strict';
 
-var listaMaterias=[
-//    {
-//        nombre:'Software',credito:2}, {
-//        nombre:'Software II',credito:2
-//    }
-];
-var app=angular.module('cursoApp',[]);
+
 module.controller('MatriculaCtrl', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
     //listar
    $scope.lista = null;
    $scope.listaEstudiantes=null;
     $scope.listaMaterias=null;
-//    $scope.id=3;
+$scope.id=6;
+
+    $scope.datosMatricula = {};
+    $scope.panelEditar = false;
+    
     $scope.getMatricula=function(){
         $http.get("./webresources/ServicioMatricula",{})
             .then(function(response) {
@@ -41,20 +39,27 @@ module.controller('MatriculaCtrl', ['$scope', '$filter', '$http', function ($sco
     }
     
     $scope.guardarMatricula=function(){
-        $http.post("./webresources/ServicioMatricula",$scope.datosMatricula)
+        $http.post("./webresources/ServicioMatricula/nuevarMatricula",$scope.datosMatricula)
             .then(function(response) {
-               $scope.getMateria(); 
+               $scope.getMatricula();
         });
     }
     $scope.editarMatricula=function(){
-        $http.put("./webresources/ServicioMatricula",$scope.datosMatricula)
+        $http.put("./webresources/ServicioMatricula/editarMatricula",$scope.datosMatricula)
             .then(function(response) {
-               $scope.getMateria(); 
+               $scope.getMatricula(); 
+        });
+    }
+    $scope.eliminarMatricula=function(){
+        console.log("estamos borrando");
+        $http.delete("./webresources/ServicioMatricula/eliminarMatricula",$scope.datosMatricula)
+            .then(function(response) {
+               $scope.getMatricula()(); 
+//       $scope.getFacultad();
         });
     }
         
-    $scope.datosMatricula = {};
-    $scope.panelEditar = false;
+
     
     //guardar
     $scope.nuevo = function () {
@@ -64,14 +69,20 @@ module.controller('MatriculaCtrl', ['$scope', '$filter', '$http', function ($sco
     
     $scope.guardar = function () {
         $scope.errores = {};
+        console.log("voy linea 74 de controller matricula");
         var error = false;
         
         if (error)
             return;
         
         if (!$scope.datosMatricula.id){
+            console.log("sipiiiiiiiiiiiiiiiiiiiiii" ||$scope.datosMatricula.id);
             $scope.datosMatricula.id = $scope.id++;
             $scope.lista.push($scope.datosMatricula);
+             console.log("yo no estoy");
+            $scope.guardarMatricula();
+        }else{
+            $scope.editarMatricula();
         }
         $scope.panelEditar = false;
     };
@@ -89,15 +100,17 @@ module.controller('MatriculaCtrl', ['$scope', '$filter', '$http', function ($sco
     $scope.eliminar = function (data){
         if (confirm('\xbfDesea elminar este registro?')) {    
             for(var i=0; i<$scope.lista.length; i++){
-                if($scope.lista[i]==data){
+                if($scope.lista[i]===data){
                     $scope.lista.splice(i,1);
+                    $scope.eliminarMatricula();
                     break;
                 }
             }
         }
     };
+       $scope.getMatricula();
      $scope.getEstudiante();
         $scope.getMateria();
-        $scope.getMatricula();
+     
  
 }]);

@@ -24,11 +24,16 @@ public class Materia {
     private int id;
     private String nombre;
     private int creditos;
-    @ManyToOne
+//    @ManyToOne
     private Carrera carrera;
     @OneToOne
     private Profesor profesor;
-    @OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToOne
+    private Matricula matricula;
+
+    @OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
+            mappedBy="materia")
+    
     private List<Horario> horario;
 
     public Carrera getCarrera() {
@@ -77,6 +82,14 @@ public class Materia {
 
     public void setCreditos(int creditos) {
         this.creditos = creditos;
+    }
+    
+    public Matricula getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(Matricula matricula) {
+        this.matricula = matricula;
     }
 
 }

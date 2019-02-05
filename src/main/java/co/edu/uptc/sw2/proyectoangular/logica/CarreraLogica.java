@@ -12,17 +12,18 @@ import javax.ejb.Stateless;
 @Stateless
 public class CarreraLogica {
       @EJB
-    public CarreraDao carreraDao;//carreradao
+    private CarreraDao carreraDao;//carreradao
     
     public List<Carrera> getListaCarrera(){
         return carreraDao.getListaCarrera();
     }
     public Carrera nuevaCarrera(Carrera carrera){
+        System.out.println("estoy en logica");
     return carreraDao.guardarCarrera(carrera);
     }
     public void editarCarrera(Carrera carreraAModif){
         for (Carrera carrera : carreraDao.getListaCarrera()) {
-            if(carrera.getId()==carreraAModif.getId()){
+            if(carrera.getId()== carreraAModif.getId()){
             carreraDao.getListaCarrera().remove(carrera);
             carreraDao.getListaCarrera().add(carreraAModif);
             carreraDao.editarCarrera(carrera);
@@ -35,7 +36,7 @@ public class CarreraLogica {
     public void eliminarCarrera(int id){
         for (Carrera carrera : carreraDao.getListaCarrera()) {
             if(carrera.getId()==id){
-           carreraDao.getListaCarrera().remove(id);
+           carreraDao.getListaCarrera().remove(carrera.getId());
            carreraDao.eliminarCarrera(carrera);
            break;
             }

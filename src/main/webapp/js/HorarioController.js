@@ -1,30 +1,41 @@
 'use strict';
 
-var listaHorario=[
-    //{dia:'Lunes', horaInicio:'2:00pm', horaFinal:'4:00pm'},
-//    {dia:'Martes', horaInicio:'2:00pm', horaFinal:'4:00pm'}
-];
 
 module.controller('HorarioCtrl', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
     //listar
    $scope.listaHorario = null;
-//    $scope.id=3;
+$scope.id=4;
     $scope.getHorario=function(){
         $http.get("./webresources/ServicioHorario",{})
             .then(function(response) {
-                $scope.lista = response.data;
+                $scope.listaHorario = response.data;
         }, function(){
                         alert("error");
         });
     }
-    
+    //esta clase no la usamos por eso llamamos los metodos dentro de mateeriacontroller
     $scope.guardarHorario=function(){
         $http.post("./webresources/ServicioHorario",$scope.datosHorario)
             .then(function(response) {
                $scope.getHorario(); 
         });
     }
-        
+       $scope.editarHorario=function(){
+        $http.put("./webresources/ServicioHorario/editarHorario",$scope.datosHorario)
+            .then(function(response) {
+               $scope.getHorario();
+       $scope.getFacultad();
+        });
+    }
+    
+       $scope.eliminarHorario=function(){
+        console.log("estamos borrando");
+        $http.delete("./webresources/ServicioHorario/eliminarHorario",$scope.datosHorario)
+            .then(function(response) {
+               $scope.getHorario(); 
+//       $scope.getFacultad();
+        });
+    }  
     $scope.datosHorario = {};
     $scope.panelEditarHorario = false;
     
@@ -34,7 +45,9 @@ module.controller('HorarioCtrl', ['$scope', '$filter', '$http', function ($scope
         $scope.datosHorario = {};
     };
     
-    $scope.guardar = function () {
+   
+
+    $scope.guardarH = function () {     
         $scope.errores = {};
         var error = false;
         
@@ -42,10 +55,16 @@ module.controller('HorarioCtrl', ['$scope', '$filter', '$http', function ($scope
             return;
         
         if (!$scope.datosHorario.id){
+            console.log("IFF ");
             $scope.datosHorario.id = $scope.id++;
             $scope.lista.push($scope.datosHorario);
+            $scope.guardarHorario();
+        }else{
+            $scope.editarHorario();
         }
-        $scope.panelEditarHorario = false;
+
+       
+        $('#modalHorario').modal('hide');
     };
     $scope.cancelar = function () {
         $scope.panelEditar = false;
@@ -63,6 +82,7 @@ module.controller('HorarioCtrl', ['$scope', '$filter', '$http', function ($scope
             for(var i=0; i<$scope.lista.length; i++){
                 if($scope.lista[i]==data){
                     $scope.lista.splice(i,1);
+                    $scope.eliminarHorario();
                     break;
                 }
             }

@@ -20,4 +20,13 @@ public class HorarioDao {
         em.persist(horario);
         return horario;
     }
+    public Horario editarHorario(Horario horario) {
+        em.merge(horario);
+        return horario;
+    }
+
+    public Horario eliminarHorario(Horario horario) {
+        em.remove(horario);
+        return horario;
+    }
 }

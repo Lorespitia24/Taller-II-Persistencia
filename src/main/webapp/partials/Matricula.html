@@ -30,7 +30,7 @@
                   <td class="row">{{row.estudiante.nombre}}</td>
                   <td class="row">{{row.materia.nombre}}</td>
                   <td class="row">{{row.semestre}}</td>
-                  <td class="row">{{row.year}}</td>
+                  <td class="row">{{row.yearM}}</td>
                 <td class="row">
                     <button type="button" class="btn btn-default" ng-click="editar(row)">
                         <span class="glyphicon glyphicon-pencil"></span>Editar
@@ -67,16 +67,16 @@
                 <div ng-show="errores.materia">{{errores.materia}}</div>
             </div>
         </div>
-        <div class="form-group col-md-6" ng-class="errores.year ? 'error' : ''">
+        <div class="form-group col-md-6" ng-class="errores.yearM ? 'error' : ''">
             <label for="year">year</label>
             <input id="year" 
                    class="form-control" 
                    type="number"
                    min="2010"
                    max ="2018"
-                   ng-model="datosMatricula.year"
+                   ng-model="datosMatricula.yearM"
                    placeholder="year"/>
-            <div ng-show="errores.year">{{errores.year}}</div>
+            <div ng-show="errores.yearM">{{errores.yearM}}</div>
         </div> 
           <div class="form-group col-md-6" ng-class="errores.semestre ? 'error' : ''">
             <label for="semestre">Semestre</label>

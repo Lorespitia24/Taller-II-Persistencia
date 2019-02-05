@@ -1,6 +1,7 @@
 package co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -19,7 +20,8 @@ public class Matricula {
     private int semestre;
     @OneToOne
     private Estudiante estudiante;
-    @OneToMany
+    @OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
+            mappedBy="matricula")
     private List<Materia> materia;
 
     public int getId() {

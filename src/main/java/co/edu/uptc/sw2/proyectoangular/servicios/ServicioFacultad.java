@@ -24,6 +24,7 @@ public class ServicioFacultad {
     private FacultadLogica facultadLogica;
 
     @GET
+    @Path("traerFacultad")
     public List<Facultad> consultarFacultad() {
         return facultadLogica.getListaFacultad();
     }

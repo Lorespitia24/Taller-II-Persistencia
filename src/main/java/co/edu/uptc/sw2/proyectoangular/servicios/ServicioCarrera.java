@@ -20,8 +20,9 @@ import javax.ws.rs.Path;
  *
  * @author RA302
  */
-@Stateless
+
 @Path("ServicioCarrera")
+@Stateless
 public class ServicioCarrera {
 
     @EJB
@@ -34,8 +35,8 @@ public class ServicioCarrera {
 
     @POST
     public Carrera guardarCarrera(Carrera carrera) {
-        carrera.setId(carreraLogica.getListaCarrera().size() + 1);
-        return carreraLogica.nuevaCarrera(carrera);
+       carrera.setId(carreraLogica.getListaCarrera().size() + 1);
+       return carreraLogica.nuevaCarrera(carrera);
     }
 
     @PUT

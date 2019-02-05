@@ -5,8 +5,11 @@
  */
 package co.edu.uptc.sw2.proyectoangular.dto.persistencia.entities;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -19,8 +22,13 @@ public class Estudiante {
     //@GeneratedValue( strategy=GenerationType.AUTO)  
     private int id;
     private String nombre;
+    private String apellido;
     private String correo;
-    private String curso;
+    private int identificacion;
+    private int codigo;
+    private Date fechaNacimiento;
+    @OneToOne
+    private Municipio municipio;
     
     public int getId() {
         return id;
@@ -46,12 +54,47 @@ public class Estudiante {
         this.correo = correo;
     }
 
-    public String getCurso() {
-        return curso;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setCurso(String curso) {
-        this.curso = curso;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
+    public int getIdentificacion() {
+        return identificacion;
+    }
+
+    public void setIdentificacion(int identificacion) {
+        this.identificacion = identificacion;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+//        SimpleDateFormat format= new SimpleDateFormat("dd/MM/yyyy");
+
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
+
+    
 }

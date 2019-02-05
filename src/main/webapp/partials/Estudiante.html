@@ -24,6 +24,12 @@
                 <th>
                     Fecha de nacimiento
                 </th>
+                 <th>
+                    Lugar de nacimiento
+                </th>
+                 <th>
+                    Correo
+                </th>
                 <th>
                 </th>
             </tr>
@@ -31,8 +37,10 @@
                 <td>{{row.nombre}}</td>
                 <td class="row">{{row.apellido}}</td>
                 <td class="row">{{row.codigo}}</td>
-                <td class="row">{{row.documento}}</td>
-                <td class="row">{{row.fechaNacimiento|date: "dd-MM-yyyy"}}</td>
+                <td class="row">{{row.identificacion}}</td>
+                <td class="row">{{row.fechaNacimiento|date: 'yyyy-mm-dd'}}</td>
+                <td class="row">{{row.municipio.nombre}}</td>
+                <td class="row">{{row.correo}}</td>
 <!--                yyyy-MM-dd-->
                 <td class="row">
                     <button type="button" class="btn btn-default" ng-click="editar(row)">
@@ -81,28 +89,48 @@
                        placeholder="codigo"/>
                 <div ng-show="errores.codigo">{{errores.codigo}}</div>
             </div>
-            <div class="form-group col-md-6" ng-class="errores.documento ? 'error' : ''">
-                <label>Documento</label>
-                <input id="documento" 
+            <div class="form-group col-md-6" ng-class="errores.identificacion ? 'error' : ''">
+                <label>identificacion</label>
+                <input id="identificacion" 
                        class="form-control" 
                        type="number"
-                       ng-model="datosEstudiante.documento"
-                       placeholder="documento"/>
-                <div ng-show="errores.documento">{{errores.documento}}</div>
+                       ng-model="datosEstudiante.identificacion"
+                       placeholder="identificacion"/>
+                <div ng-show="errores.identificacion">{{errores.identificacion}}</div>
             </div>
         </div>
 
         <div class="row">
             <div class="form-group col-md-6" ng-class="errores.fechaNacimiento ? 'error' : ''">
                 <label>Fecha Nacimiento</label>
-                <input type="date"                           
-                       value="{{ datosEstudiante.fechaNacimiento | date: 'yyyy-MM-dd'}}"
+                <input type="date"
                        class="form-control"
+                       value="{{ datosEstudiante.fechaNacimiento | date: 'yyyy-mm-dd'}}"
+                       
                        ng-model="datosEstudiante.fechaNacimiento"/>
                 <div ng-show="errores.fechaNacimiento">{{errores.fechaNacimiento}}</div>
             </div>
         </div>
-
+        <div class="row">
+            <div class="form-group col-md-6" ng-class="errores.municipio ? 'error' : ''">
+                <label>lugar Nacimiento</label>
+                <select id="lugarNacimiento" class="form-control" 
+                        ng-model="datosEstudiante.municipio"
+                        ng-options="option.nombre for option in listaMunicipio track by option.id">
+                </select>
+                <div ng-show="errores.municipio">{{errores.municipio}}</div>
+            </div>
+        </div>
+        <div class="panel-body">
+        <div class="form-group col-md-6" ng-class="errores.correo ? 'error' : ''">
+            <label for="correo">correo</label>
+            <input id="correo" 
+                   class="form-control" 
+                   type="text"
+                   ng-model="datosEstudiante.correo"
+                   placeholder="ejemplo@ejem.com"/>
+            <div ng-show="errores.correo">{{errores.correo}}</div>
+        </div> 
         <div class="btn-group">
             <button type="button" class="btn btn-default" ng-click="guardar()">Aceptar</button>
             <button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>

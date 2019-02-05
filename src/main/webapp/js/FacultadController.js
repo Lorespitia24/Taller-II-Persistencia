@@ -6,8 +6,12 @@ module.controller('FacultadCtrl', ['$scope', '$filter', '$http', function ($scop
     //listar
     $scope.lista = null;
     $scope.id=3;
+        $scope.datosFacultad = {};
+    $scope.panelEditar = false;
+    
     $scope.getFacultad=function(){
-        $http.get("./webresources/ServicioFacultad",{})
+        console.log("casito guardo");
+        $http.get("./webresources/ServicioFacultad/traerFacultad",{})
             .then(function(response) {
                 $scope.lista = response.data;
         }, function(){
@@ -37,8 +41,7 @@ module.controller('FacultadCtrl', ['$scope', '$filter', '$http', function ($scop
                $scope.getFacultad(); 
         });
     } 
-    $scope.datosFacultad = {};
-    $scope.panelEditar = false;
+
     
     //guardar
     $scope.nuevo = function () {
@@ -55,7 +58,7 @@ module.controller('FacultadCtrl', ['$scope', '$filter', '$http', function ($scop
         
         if (!$scope.datosFacultad.id){
             $scope.datosFacultad.id = $scope.id++;
-            $scope.lista.push($scope.datosFacultad);
+            $scope.lista.push($scope.datosFacultad.id);
             $scope.guardarFacultad();
         }
         else{

@@ -31,6 +31,7 @@ public class MatriculaLogica {
             if(matricula.getId()==matriculaEdit.getId()){
             matriculaDao.getListaMatricula().remove(matricula);
             matriculaDao.getListaMatricula().add(matriculaEdit);
+            matriculaDao.editarMatricula(matricula);
             break;
             }
             
@@ -42,6 +43,7 @@ public class MatriculaLogica {
         for (Matricula matricula : matriculaDao.getListaMatricula()) {
             if(matricula.getId()==id){
            matriculaDao.getListaMatricula().remove(id);
+           matriculaDao.eliminarMatricula(matricula);
            break;
             }
             

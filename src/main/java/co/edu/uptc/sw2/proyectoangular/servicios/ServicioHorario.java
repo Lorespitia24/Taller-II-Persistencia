@@ -34,9 +34,8 @@ public class ServicioHorario {
 
     @POST
     public Horario guardarHorario(Horario horario) {
-
         horario.setId(horarioLogica.getListaHorario().size() + 1);
-return horarioLogica.nuevoHorario(horario);
+        return horarioLogica.nuevoHorario(horario);
     }
     //metodos
 
